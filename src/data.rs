@@ -21,7 +21,7 @@ pub enum WindType {
 #[wasm_bindgen]
 #[derive(PartialEq, Clone, Copy, Debug)]
 pub enum SpecialDay {
-	None, Easter, FishCon, InsectCon, Countdown, Fireworks
+	None, Easter, FishCon, InsectCon, Countdown, Fireworks, Halloween, Christmas
 }
 #[wasm_bindgen]
 #[derive(PartialEq, Clone, Copy, Debug)]
@@ -160,6 +160,9 @@ pub static PATTERNS: [[Weather;24];34] = [
 	[F, F, F, C, C, C, C, C, C, O, C, C, F, C, O, C, F, C, F, C, C, F, C, F,],  // Fine04
 	[O, C, C, F, C, C, C, C, F, C, C, F, C, C, O, C, C, F, C, O, C, C, F, C,],  // Fine05
 	[F, C, F, C, C, C, O, C, C, O, F, C, F, C, C, F, C, O, O, C, C, C, F, F,],  // Fine06
+	[F, C, F, C, O, F, C, F, C, F, C, C, F, C, F, C, C, F, C, F, C, C, C, F,],  // Fine07
+	[F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F,],  // Fine08
+	[F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F, F,],  // Fine09
 	[C, C, C, O, O, O, RC,O, O, O, C, C, O, O, O, C, C, O, O, O, RC,O, O, C,],  // Cloud00
 	[C, O, RC,O, O, O, O, O, C, O, RC,O, O, C, O, O, O, RC,RC,O, O, C, C, C,],  // Cloud01
 	[O, O, O, RC,O, O, O, RC,R, R, R, O, O, RC,R, R, R, O, O, RC,O, RC,O, O,],  // Cloud02
@@ -167,8 +170,10 @@ pub static PATTERNS: [[Weather;24];34] = [
 	[RC,R, R, R, R, R, R, R, R, O, RC,R, R, O, O, RC,HR,R, R, R, R, C, C, O,],  // Rain01
 	[RC,O, R, R, R, R, R, R, RC,R, C, RC,R, R, R, O, R, R, R, RC,HR,R, R, R,],  // Rain02
 	[R, R, R, R, R, R, RC,R, R, HR,HR,R, R, HR,HR,HR,HR,R, R, R, R, R, O, RC,], // Rain03
-	[R, R, HR,HR,R, R, R, HR,HR,HR,HR,R, HR,HR,HR,R, R, HR,HR,HR,HR,HR,HR,R,],  // Rain04
-	[RC,R, R, HR,R, HR,HR,R, R, HR,HR,HR,HR,R, HR,HR,HR,HR,HR,HR,R, R, O, C,],  // Rain05
+	[R, R, HR,HR,R, R, R, HR,HR,HR,HR,R, HR,HR,HR,R, R, HR,HR,HR,HR,HR,HR, R,], // Rain04
+	[RC,R, R, HR,R, HR,HR,R, R, HR,HR,HR,HR,R, HR,HR,HR,HR,HR,HR, R, R, O, C,], // Rain05
+	[HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,HR,], // Rain06
+	[ O, R,HR, R,RC, R,HR, O, O, R,HR,HR, R,HR,RC, R,HR, R, R,HR,RC,HR, R,RC,], // Rain07
 //   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23
 	[RC,O, RC,RC,O, R, O, O, O, O, O, C, C, F, C, C, F, C, C, C, O, O, O, O,],  // FineCloud00
 	[O, RC,O, O, O, O, C, C, C, F, C, C, F, C, C, O, RC,R, R, O, O, RC,O, O,],  // FineCloud01
@@ -187,8 +192,11 @@ pub static PATTERNS: [[Weather;24];34] = [
 	[O, O, O, O, O, RC,R, R, R, R, R, R, R, R, R, O, RC,O, O, O, O, O, C, C,],  // RainCloud01
 	[C, C, O, O, RC,RC,HR,HR,R, R, R, O, O, R, O, O, O, O, O, RC,O, RC,O, O,],  // RainCloud02
 //   0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23
-	[F, F, C, F, F, C, F, C, C, C, F, C, O, F, C, F, C, C, O, C, O, C, F, C,],  // Commun00
-	[F, F, C, F, F, C, F, C, C, C, F, C, C, F, C, F, C, C, F, C, F, C, F, C,],  // EventDay00
+	[ F, F, C, F, F, C, F, C, C, C, F, C, O, F, C, F, C, C, O, C, O, C, F, C,],  // Commun00
+	[ F, F, C, F, F, C, F, C, C, C, F, C, C, F, C, F, C, C, F, C, F, C, F, C,],  // EventDay00
+	[RC,RC,RC,RC, O, O, C, F, C, F, C, C, F, C, C, O, C, O,RC,RC, C,RC,RC, C,],  // EventDay01
+	[HR,HR,HR, R,HR, R, R, R, R, R, R, R, R, R, R, R, R,HR,HR, R,HR,HR,HR, R,],  // EventDay02
+	[ F, C, O, C, O, R,HR, R,HR, R,HR, R,RC,HR, R,HR, O, C, O, F, C, F, C, O,],  // EventDay03
 ];
 
 use WindType::Calm as WC;
