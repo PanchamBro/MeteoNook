@@ -29,9 +29,13 @@ pub fn is_special_day(hemi: Hemisphere, y: u16, m: u8, d: u8) -> SpecialDay {
 	let y: usize = y.into();
 
 	if y >= 2000 && y <= 2060 {
-		if y == 2020 && m == EASTER_MONTHS[y - 2000] && d == EASTER_DAYS[y - 2000] {
+		if m == FESTIVALE_MONTHS[y - 2000] && d == FESTIVALE_DAYS[y - 2000] {
+			return Festivale;
+		}
+		if m == EASTER_MONTHS[y - 2000] && d == EASTER_DAYS[y - 2000] {
 			return Easter;
 		}
+		
 		if m == 1 && d == FISH_CON_JAN[y - 2000] { return FishCon; }
 		if m == 4 && d == FISH_CON_APR[y - 2000] { return FishCon; }
 		if m == 7 && d == FISH_CON_JUL[y - 2000] { return FishCon; }
@@ -51,7 +55,11 @@ pub fn is_special_day(hemi: Hemisphere, y: u16, m: u8, d: u8) -> SpecialDay {
 			}
 		}
 		if m == 8 && (((d - 1) % 7) + 1) == AUGUST_SUNDAYS[y - 2000] { return Fireworks; }
+		if m == 11 && d == TURKEY_DAY[y - 2000] { return TurkeyDay; }
 	}
+	if m == 10 && d == 31 { return Halloween; }
+	if m == 12 && d == 24 { return ToyDay; }
+	if m == 12 && d == 25 { return ToyDayAfter; }
 	if m == 12 && d == 31 { return Countdown; }
 	return None;
 }
@@ -60,11 +68,16 @@ fn is_eventday_forced(hemi: Hemisphere, y: u16, m: u8, d: u8) -> TriState {
 	use SpecialDay::*;
 	use TriState::*;
 	match is_special_day(hemi, y, m, d) {
+		Festivale => Certain,
 		Easter => Certain,
 		FishCon => Sometimes,
 		InsectCon => Sometimes,
 		Countdown => Certain,
 		Fireworks => Sometimes,
+		TurkeyDay => Certain,
+		Halloween => Sometimes,
+		ToyDay => Sometimes,
+		ToyDayAfter => Sometimes,
 		None => Never
 	}
 }
